@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>登入</title>
+  
+  <!--  CSS -->
+ {% block css %}{% endblock css %}
+<link rel="stylesheet" href="./static/css/header.css">
+<link rel="stylesheet" href="./static/css/messagebox.css">
+
+  <!--  js -->
+
+<script  src="./static/js/header.js"></script>
+
+</head>
+<body>
+
+ <header>
+        <div class="menu-toggle" id="hamburger">
+            <i class="fas fa-bars"></i>
+        </div>
+        <div class="overlay"></div>
+        <div class="container">
+            <nav>
+                <h1 class="brand"><a href="index.html">N<span>C</span>U</a></h1>
+                <ul>
+                    <li><a href="/">首頁</a></li>
+                   
+                    <li><a href="/login">登入</a></li>
+                    <li><a href="#">註冊</a></li>
+                </ul>
+            </nav>
+        </div>
+</header>
+            {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                    {% for message in messages %}
+                    <div class="error box">
+                        {{message}}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+        
+
+{% block content %}{% endblock content %}
+
+   
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    
+    
+
+<!-- partial:index.partial.html -->
+<canvas id="projector">Your browser does not support the Canvas element.</canvas>
+<!-- partial -->
+
+
+</body>
+</html>
