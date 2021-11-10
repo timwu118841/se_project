@@ -52,11 +52,9 @@ def reset_password_recieve(token):
         user = User()
         data = user.validate_confirm_token(token)
         if data:
-            #  如果未來有需求的話，還要確認使用者是否被停權了。
-            #  如果是被停權的使用者，應該要先申請復權。
-            #  下面注意，複製過來的話記得改一下id的取得是reset_id，不是user_id
+            
             user = User.query.filter_by(id=data.get('reset_id')).first()
-            #  再驗證一次是否確實的取得使用者資料
+            #  驗證
             if user:
                 hashed_password= bycrypt.generate_password_hash(form.password.data).decode('utf-8')
                 user.password = hashed_password
