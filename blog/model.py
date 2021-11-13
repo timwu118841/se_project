@@ -54,5 +54,13 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
+class restaurant(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    location = db.Column(db.String(100),nullable=False)
+    title = db.Column(db.String(100),nullable=False)
+    rated = db.Column(db.Float,nullable=False)
+    avg_cost = db.Column(db.Integer,nullable=False)
+
+
 
     

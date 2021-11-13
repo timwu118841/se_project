@@ -11,9 +11,18 @@ from blog.sendmail import send_mail
 @app.route("/")
 
 
+
 @app.route("/home")
 def home():
     return render_template('index.html')
+    
+@app.route("/layer2")
+def layer2():
+    return render_template('layer2card.html')
+    
+@app.route("/r_sumit")
+def sumit():
+    return render_template('r_sumit.html')
 
 
 @app.route("/about")
