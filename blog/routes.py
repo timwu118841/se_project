@@ -29,7 +29,7 @@ def resetpassword():
         user = User.query.filter_by(email=form.email.data).first()
         if user:
             token=user.create_reset_token()
-            send_mail(sender='YOUR@gmail.com',  #  發送者
+            send_mail(sender='@GMAIL.COM',  #  發送者
                       recipients=[user.email],
                       subject='Reset Your Password',
                       template='resetemail',
