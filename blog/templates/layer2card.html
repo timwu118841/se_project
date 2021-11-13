@@ -5,17 +5,29 @@
   <title>layer2</title>
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css'>
 <link rel='stylesheet' href='https://fonts.googleapis.com/icon?family=Material+Icons'><link rel="stylesheet" href="./static/css/layer2card.css">
-
+<link rel="stylesheet" href="./static/css/messagebox.css">
 </head>
 <body>
+ {% with messages = get_flashed_messages() %}
+               {% if messages %}
+                    {% for message in messages %}
+                    <div class="success box">
+                        {{message}}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
 
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
+  <a class="active" href="/home">Home</a>
+   {% if current_user.is_authenticated%}
    <div class="dropdownwoo">
     <button class="dropbtnwoo" onclick="location.href='/r_sumit'">新增餐廳
       <i class="fa fa-caret-down"></i>
     </button>
   </div>
+    {% else %}
+    {%endif%}
    <div class="dropdownwoo">
     <button class="dropbtnwoo">價錢
       <i class="fa fa-caret-down"></i>

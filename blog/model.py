@@ -16,7 +16,7 @@ class User(db.Model,UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(20), nullable=False, default='default.jpg')
+   
     password = db.Column(db.String(60), nullable=False)
     posts = db.relationship('Post', backref='author', lazy=True)
 
@@ -54,13 +54,15 @@ class Post(db.Model):
         return f"Post('{self.title}', '{self.date_posted}')"
 
 
-class restaurant(db.Model):
+class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    location = db.Column(db.String(100),nullable=False)
     title = db.Column(db.String(100),nullable=False)
-    rated = db.Column(db.Float,nullable=False)
-    avg_cost = db.Column(db.Integer,nullable=False)
-
+    location = db.Column(db.String(100),nullable=True)
+    rated = db.Column(db.Float,nullable=True)
+    money = db.Column(db.Integer,nullable=False)
+    tele = db.Column(db.String(100),nullable=False)
+    image = db.Column(db.String(20), nullable=True, default='default.jpg')
+    description = db.Column(db.Text, nullable=True)
 
 
     

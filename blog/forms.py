@@ -1,5 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms.fields.core import IntegerField
+from wtforms.fields.simple import FileField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from blog.model import User
 
@@ -35,3 +37,15 @@ class FormResetPassword(FlaskForm):
     password = PasswordField('', validators=[DataRequired()])
     confirm_password = PasswordField('',
                                      validators=[DataRequired(), EqualTo('password')])
+    
+class RestuarantForm(FlaskForm):
+    """餐廳資訊"""
+    title = StringField('',
+                           validators=[DataRequired(), Length(min=4, max=10)])
+    money = IntegerField('',validators=[DataRequired()])
+    tele =  StringField('',
+                           validators=[DataRequired()])
+    image        = FileField('', )
+    location = StringField('',
+                           validators=[DataRequired(), Length(min=4, max=10)])
+    description  = TextAreaField('')

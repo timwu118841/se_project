@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect
 from blog import app,db,bycrypt
-from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword
-from blog.model import User
+from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm
+from blog.model import User, Restaurant
 from flask_login import login_user, current_user,logout_user
 from blog.sendmail import send_mail
 '''
@@ -20,9 +20,21 @@ def home():
 def layer2():
     return render_template('layer2card.html')
     
-@app.route("/r_sumit")
+@app.route("/r_sumit",methods=['GET','POST'])
 def sumit():
-    return render_template('r_sumit.html')
+    form = RestuarantForm()
+    print("form")
+    if form.validate_on_submit():
+            restaurant = Restaurant( title=form.title.data,money=form.money.data,tele=form.tele.data,image=form.image.data,
+                                location=form.location.data,description=form.description.data)
+            db.session.add(restaurant)
+            db.session.commit()
+            flash('成功新增餐廳')
+            return render_template('layer2card.html')
+    print(form.errors)    
+    return render_template('r_sumit.html',form=form)
+        
+    
 
 
 @app.route("/about")
