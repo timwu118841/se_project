@@ -56,7 +56,7 @@ class Post(db.Model):
 
 class Restaurant(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100),nullable=False)
+    title = db.Column(db.String(100),nullable=False,unique=True)
     location = db.Column(db.String(100),nullable=True)
     rated = db.Column(db.Float,nullable=True)
     money = db.Column(db.Integer,nullable=False)

@@ -1,5 +1,7 @@
+import re
 from flask import render_template, url_for, flash, redirect
 from flask.globals import request
+from sqlalchemy.orm import Session
 from blog import app,db,bycrypt
 from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm
 from blog.model import User, Restaurant
@@ -11,21 +13,57 @@ import base64 as b
 就是route的地方
 '''
 
-@app.route("/")
+@app.route("/",methods=['GET','POST'])
 
 
 
-@app.route("/home")
+@app.route("/home",methods=['GET','POST'])
 def home():
+    
+    
+            
+        
+    
+    
     return render_template('index.html')
     
 @app.route("/layer2",methods=['GET','POST'])
 def layer2():
-    form = RestuarantForm()
-    title=Restaurant.query.all()
-   
     
-    return render_template('layer2card.html',form=form,data=title)
+    if request.method=='POST':
+        
+        if request.form['submit_button']=="後門":
+                title=Restaurant.query.filter(Restaurant.location=="中央後門").all()
+                return render_template('layer2card.html',data=title)
+
+        elif request.form['submit_button']=="宵夜街":
+            title=Restaurant.query.filter(Restaurant.location=="宵夜街").all()
+            return render_template('layer2card.html',data=title)
+        elif request.form['submit_button']=="校內":
+            title=Restaurant.query.filter(Restaurant.location=="校內").all()
+            return render_template('layer2card.html',data=title)
+        elif request.form['submit_button']=="市區":
+            title=Restaurant.query.filter(Restaurant.location=="市區").all()
+            return render_template('layer2card.html',data=title)
+        
+        if request.form['submit_button']=="101中央後門":
+           
+            title=Restaurant.query.filter(
+                Restaurant.money>=100,
+                Restaurant.money<300,
+                Restaurant.location == '中央後門'
+                
+            ).all()
+          
+            return render_template('layer2card.html',data=title)
+            
+        else:
+            title=Restaurant.query.all()
+            return render_template('layer2card.html',data=title)
+
+     
+        
+            
     
 @app.route("/r_sumit",methods=['GET','POST'])
 def sumit():
@@ -43,7 +81,7 @@ def sumit():
          
             db.session.commit()
             flash('成功新增餐廳')
-            return redirect(url_for('layer2'))
+            return redirect(url_for('home'))
     print(form.errors)    
     return render_template('r_sumit.html',form=form)
         
