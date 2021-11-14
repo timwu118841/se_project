@@ -41,11 +41,11 @@ class FormResetPassword(FlaskForm):
 class RestuarantForm(FlaskForm):
     """餐廳資訊"""
     title = StringField('',
-                           validators=[DataRequired(), Length(min=4, max=10)])
+                           validators=[DataRequired(), Length(min=2, max=7)])
     money = IntegerField('',validators=[DataRequired()])
     tele =  StringField('',
                            validators=[DataRequired()])
-    image        = FileField('', )
+    image        = FileField('',validators=[DataRequired()])
     location = StringField('',
-                           validators=[DataRequired(), Length(min=4, max=10)])
-    description  = TextAreaField('')
+                           validators=[DataRequired(), Length(min=2, max=10)])
+    description  = TextAreaField('',validators=[DataRequired(), Length(min=4, max=10)])

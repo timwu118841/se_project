@@ -61,7 +61,7 @@ class Restaurant(db.Model):
     rated = db.Column(db.Float,nullable=True)
     money = db.Column(db.Integer,nullable=False)
     tele = db.Column(db.String(100),nullable=False)
-    image = db.Column(db.String(20), nullable=True, default='default.jpg')
+    image = db.Column(db.LargeBinary(length=(2**32)-1), nullable=True)
     description = db.Column(db.Text, nullable=True)
 
 

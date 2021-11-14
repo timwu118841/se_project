@@ -9,7 +9,7 @@
 <body>
 <!-- partial:index.partial.html -->
 <div class="container">  
-  <form id="contact" action="" method="POST">
+  <form id="contact" action="" method="POST" enctype="multipart/form-data">
     {{ form.hidden_tag() }}
     <h3>新增餐廳</h3>
     <h4>來新增你覺得讚讚的餐廳吧!</h4>
@@ -30,7 +30,7 @@
       {{form.tele.errors[0]}}
     </fieldset>
     <fieldset>
-     {{form.image(placeholder="餐廳相片")}}
+     {{form.image(placeholder="餐廳相片", )}}
       {{form.image.errors[0]}}
     </fieldset>
     <fieldset>

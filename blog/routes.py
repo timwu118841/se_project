@@ -1,9 +1,12 @@
 from flask import render_template, url_for, flash, redirect
+from flask.globals import request
 from blog import app,db,bycrypt
 from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm
 from blog.model import User, Restaurant
 from flask_login import login_user, current_user,logout_user
 from blog.sendmail import send_mail
+from werkzeug.utils import secure_filename
+import base64 as b
 '''
 就是route的地方
 '''
@@ -16,21 +19,31 @@ from blog.sendmail import send_mail
 def home():
     return render_template('index.html')
     
-@app.route("/layer2")
+@app.route("/layer2",methods=['GET','POST'])
 def layer2():
-    return render_template('layer2card.html')
+    form = RestuarantForm()
+    title=Restaurant.query.all()
+   
+    
+    return render_template('layer2card.html',form=form,data=title)
     
 @app.route("/r_sumit",methods=['GET','POST'])
 def sumit():
     form = RestuarantForm()
-    print("form")
-    if form.validate_on_submit():
-            restaurant = Restaurant( title=form.title.data,money=form.money.data,tele=form.tele.data,image=form.image.data,
-                                location=form.location.data,description=form.description.data)
+
+    if form.validate_on_submit(): 
+            image_data= request.files[form.image.name].read()
+            Dimage_data= b.b64encode(image_data)
+           
+            
+            restaurant = Restaurant(title=form.title.data,money=form.money.data,tele=form.tele.data,image=Dimage_data
+                                ,location=form.location.data,description=form.description.data)
+           
             db.session.add(restaurant)
+         
             db.session.commit()
             flash('成功新增餐廳')
-            return render_template('layer2card.html')
+            return redirect(url_for('layer2'))
     print(form.errors)    
     return render_template('r_sumit.html',form=form)
         
