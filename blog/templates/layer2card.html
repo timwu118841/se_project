@@ -33,15 +33,28 @@
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-contentwoo">
+      {% if data[0] %}
       <form action="" method="POST">
-      <button  input type = "submit" name="submit_button"value="99" >100內</button>
+      <button  input type = "submit" name="submit_button"value="99{{data[0].location}}" >100內</button>
       </form>
       <form action="" method="POST">
-      <button input type = "submit" name="submit_button"value="101">100~300</button>
+      <button input type = "submit" name="submit_button"value="101{{data[0].location}}">100~300</button>
       </form>
       <form action="" method="POST">
-       <button input type = "submit" name="submit_button"value="301">300上</button>
+       <button input type = "submit" name="submit_button"value="301{{data[0].location}}">300上</button>
       </form>
+      {% else %}
+      <form action="" method="POST">
+      <button  input type = "submit" name="submit_button"value="99{{data1[0].location}}" >100內</button>
+      </form>
+      <form action="" method="POST">
+      <button input type = "submit" name="submit_button"value="101{{data1[0].location}}">100~300</button>
+      </form>
+      <form action="" method="POST">
+       <button input type = "submit" name="submit_button"value="301{{data1[0].location}}">300上</button>
+      </form>
+     
+      {% endif %}
     </div>
   </div>
    <div class="dropdownwoo">
@@ -71,6 +84,7 @@
     <a href="#" class="btn btn-primary">Submit</a>
   </div>   -->
   <div class="row">
+  {% if data[0]=="0" %}
   {%for r in data %}
   
     <div class="col-md-3 col-sm-6">
@@ -84,6 +98,23 @@
     </div>
  
   {%endfor %}
+  {% elif data[0] %}
+  {%for r in data %}
+  
+    <div class="col-md-3 col-sm-6">
+      <div class="card card-block">
+      <h4 class="card-title text-right"><i class="material-icons">settings</i></h4>
+    <img src="data:image/jpeg;base64,{{(r.image).decode('ISO-8859-1')}}" alt="Photo of sunset"/>
+        <h5 class="card-title mt-3 mb-3">{{r.title}}</h5>
+        <p class="card-text">簡介：{{r.description}}
+                              價錢：{{r.money}}</p> 
+      </div>
+    </div>
+ 
+  {%endfor %}
+  {%else%}
+  <h4>還有沒餐廳被新增</h4>
+  {% endif %}
    </div>
     
 

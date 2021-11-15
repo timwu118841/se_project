@@ -1,14 +1,16 @@
+from logging import NullHandler
 import re
 from flask import render_template, url_for, flash, redirect
 from flask.globals import request
-from sqlalchemy.orm import Session
+
 from blog import app,db,bycrypt
 from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm
 from blog.model import User, Restaurant
 from flask_login import login_user, current_user,logout_user
 from blog.sendmail import send_mail
-from werkzeug.utils import secure_filename
+from jinja2 import Undefined
 import base64 as b
+
 '''
 就是route的地方
 '''
@@ -28,42 +30,218 @@ def home():
     return render_template('index.html')
     
 @app.route("/layer2",methods=['GET','POST'])
-def layer2():
+
     
+def layer2():
+    string = request.form['submit_button']
+    print(string)
     if request.method=='POST':
-        
-        if request.form['submit_button']=="後門":
-                title=Restaurant.query.filter(Restaurant.location=="中央後門").all()
-                return render_template('layer2card.html',data=title)
-
-        elif request.form['submit_button']=="宵夜街":
-            title=Restaurant.query.filter(Restaurant.location=="宵夜街").all()
-            return render_template('layer2card.html',data=title)
-        elif request.form['submit_button']=="校內":
-            title=Restaurant.query.filter(Restaurant.location=="校內").all()
-            return render_template('layer2card.html',data=title)
-        elif request.form['submit_button']=="市區":
-            title=Restaurant.query.filter(Restaurant.location=="市區").all()
-            return render_template('layer2card.html',data=title)
-        
-        if request.form['submit_button']=="101中央後門":
+            
            
-            title=Restaurant.query.filter(
-                Restaurant.money>=100,
-                Restaurant.money<300,
-                Restaurant.location == '中央後門'
-                
-            ).all()
-          
-            return render_template('layer2card.html',data=title)
-            
-        else:
-            title=Restaurant.query.all()
-            return render_template('layer2card.html',data=title)
+            if request.form['submit_button']=="後門":
+                    
+                    title1=Restaurant.query.filter( Restaurant.location == '中央後門').first()
+                    if title1==None:
+                        title='0'
+                        return render_template('layer2card.html',data1=title,data=title1)
+                    else:
+                    
+                        title=Restaurant.query.filter( Restaurant.location == '中央後門').all()
+                        return render_template('layer2card.html',data=title)
 
-     
+            elif request.form['submit_button']=="宵夜街":
+            
+                title1=Restaurant.query.filter( Restaurant.location == '宵夜街').first()
+                if title1==None:
+                    title='0'
+                    return render_template('layer2card.html',data1=title,data=title1)
+                else:
+                    
+                    title=Restaurant.query.filter( Restaurant.location == '宵夜街').all()
+                    return render_template('layer2card.html',data=title,)
+            elif request.form['submit_button']=="校內":
+            
+                title1=Restaurant.query.filter( Restaurant.location == '校內').first()
+                if title1==None:
+                    title='0'
+                    return render_template('layer2card.html',data1=title,data=title1)
+                else:
+                
+                    title=Restaurant.query.filter( Restaurant.location == '校內').all()
+                    return render_template('layer2card.html',data=title)
+            elif request.form['submit_button']=="市區":
+            
+                title1=Restaurant.query.filter( Restaurant.location == '市區').first()
+                if title1==None:
+                    title='0'
+                    return render_template('layer2card.html',data1=title,data=title1)
+                else:
+                
+                    title=Restaurant.query.filter( Restaurant.location == '市區').all()
+                    return render_template('layer2card.html',data=title)
         
             
+            if request.form['submit_button']=="101中央後門":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money>=100,
+                    Restaurant.money<300,
+                    Restaurant.location == '中央後門'
+                    
+                ).all()
+            
+                title1=Restaurant.query.filter( Restaurant.location == '中央後門').all()
+            
+                return render_template('layer2card.html',data=title,data1=title1)
+            elif request.form['submit_button']=="99中央後門":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money<100,
+                    
+                    Restaurant.location == '中央後門'
+                    
+                ).all()
+            
+            
+                title1=Restaurant.query.filter( Restaurant.location == '中央後門').all()
+            
+                return render_template('layer2card.html',data=title,data1=title1)
+            
+            elif request.form['submit_button']=="301中央後門":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money>300,
+                    
+                    Restaurant.location == '中央後門'
+                    
+                ).all()
+            
+                title1=Restaurant.query.filter( Restaurant.location == '中央後門').all()
+            
+                return render_template('layer2card.html',data=title,data1=title1)
+            
+            elif request.form['submit_button']=="101宵夜街":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money>=100,
+                    Restaurant.money<300,
+                    Restaurant.location == '宵夜街'
+                    
+                ).all()
+                
+            
+                title1=Restaurant.query.filter( Restaurant.location == '宵夜街').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+                
+            
+            elif request.form['submit_button']=="99宵夜街":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money<100,
+                
+                    Restaurant.location == '宵夜街'
+                    
+                ).all()
+                
+                title1=Restaurant.query.filter( Restaurant.location == '宵夜街').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            
+            elif request.form['submit_button']=="301宵夜街":
+            
+                title=Restaurant.query.filter(
+            
+                    Restaurant.money>300,
+                    Restaurant.location == '宵夜街'
+                    
+                ).all()
+                title1=Restaurant.query.filter( Restaurant.location == '宵夜街').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            elif request.form['submit_button']=="101校內":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money>=100,
+                    Restaurant.money<300,
+                    Restaurant.location == '校內'
+                    
+                ).all()
+            
+                title1=Restaurant.query.filter( Restaurant.location == '校內').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            elif request.form['submit_button']=="99校內":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money<100,
+                    
+                    Restaurant.location == '校內'
+                    
+                ).all()
+                
+                title1=Restaurant.query.filter( Restaurant.location == '校內').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            elif request.form['submit_button']=="301校內":
+            
+                title=Restaurant.query.filter(
+        
+                    Restaurant.money>300,
+                    Restaurant.location == '校內'
+                    
+                ).all()
+            
+                
+                title1=Restaurant.query.filter( Restaurant.location == '校內').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            elif request.form['submit_button']=="101市區":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money>=100,
+                    Restaurant.money<300,
+                    Restaurant.location == '市區'
+                    
+                ).all()
+            
+                
+                title1=Restaurant.query.filter( Restaurant.location == '市區').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            
+            elif request.form['submit_button']=="99市區":
+            
+                title=Restaurant.query.filter(
+                    Restaurant.money<100,
+                
+                    Restaurant.location == '市區'
+                    
+                ).all()
+            
+                title1=Restaurant.query.filter( Restaurant.location == '市區').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            
+            elif request.form['submit_button']=="301市區":
+            
+                title=Restaurant.query.filter(
+                    
+                    Restaurant.money>300,
+                    Restaurant.location == '市區'
+                    
+                ).all()
+            
+                
+                title1=Restaurant.query.filter( Restaurant.location == '市區').all()
+                
+                return render_template('layer2card.html',data=title,data1=title1)
+            else:
+                print("近來ELSE")
+                print(string)
+                title=None
+                title1=string
+                return render_template('layer2card.html',data1=title1,data=title)
     
 @app.route("/r_sumit",methods=['GET','POST'])
 def sumit():

@@ -22,4 +22,5 @@ db = SQLAlchemy(app)
 bycrypt=Bcrypt(app)
 login_manger = LoginManager(app)
 mail = Mail(app)
+
 from blog import routes
