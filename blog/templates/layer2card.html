@@ -86,30 +86,39 @@
   <div class="row">
   {% if data[0]=="0" %}
   {%for r in data %}
-  
-    <div class="col-md-3 col-sm-6">
+   
+    <div  class="col-md-3 col-sm-6" >
       <div class="card card-block">
+
       <h4 class="card-title text-right"><i class="material-icons">settings</i></h4>
     <img src="data:image/jpeg;base64,{{(r.image).decode('ISO-8859-1')}}" alt="Photo of sunset"/>
         <h5 class="card-title mt-3 mb-3">{{r.title}}</h5>
         <p class="card-text">簡介：{{r.description}}
-                              價錢：{{r.money}}</p> 
+                              價錢：{{r.money}}
+                              
+                              </p> 
+                  
       </div>
     </div>
- 
+
   {%endfor %}
   {% elif data[0] %}
   {%for r in data %}
-  
+ 
     <div class="col-md-3 col-sm-6">
+     <a href="/comment?title={{r.title}}">
       <div class="card card-block">
       <h4 class="card-title text-right"><i class="material-icons">settings</i></h4>
     <img src="data:image/jpeg;base64,{{(r.image).decode('ISO-8859-1')}}" alt="Photo of sunset"/>
         <h5 class="card-title mt-3 mb-3">{{r.title}}</h5>
         <p class="card-text">簡介：{{r.description}}
-                              價錢：{{r.money}}</p> 
+                              價錢：{{r.money}}
+                              評分:{{r.rated}}</p> 
+                            
       </div>
+      </a>
     </div>
+   
  
   {%endfor %}
   {%else%}

@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms import validators
 from wtforms.fields.core import IntegerField
-from wtforms.fields.simple import FileField, TextAreaField
+from wtforms.fields.simple import FileField, TextAreaField, TextField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from blog.model import User,Restaurant
 
@@ -63,4 +63,7 @@ class RestuarantForm(FlaskForm):
         title = Restaurant.query.filter_by(title=title.data).first()
         if title:
             raise ValidationError('有人新增過了別皮')
-
+class PostForm(FlaskForm):
+    "評論資訊"
+    post = TextAreaField('',validators=[DataRequired(),Length(min=10,max=100)])
+    rate = IntegerField('',validators=[DataRequired()])

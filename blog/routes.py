@@ -1,15 +1,16 @@
 from logging import NullHandler
 import re
 from flask import render_template, url_for, flash, redirect
-from flask.globals import request
+from flask.globals import request, session
 
 from blog import app,db,bycrypt
-from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm
-from blog.model import User, Restaurant
+from blog.forms import RegistrationForm, LoginForm,ResetPasswordFormEmail,FormResetPassword,RestuarantForm,PostForm
+from blog.model import Post, User, Restaurant
 from flask_login import login_user, current_user,logout_user
 from blog.sendmail import send_mail
 from jinja2 import Undefined
 import base64 as b
+
 
 '''
 就是route的地方
@@ -260,9 +261,47 @@ def sumit():
             db.session.commit()
             flash('成功新增餐廳')
             return redirect(url_for('home'))
-    print(form.errors)    
+     
     return render_template('r_sumit.html',form=form)
         
+@app.route("/r_alter",methods=['GET','POST'])
+def alter():
+    form=RestuarantForm()
+    if form.validate_on_submit():
+        pass
+    
+@app.route("/comment",methods=['GET','POST'])
+def comment():
+    global title
+    form=PostForm()
+    form2=RestuarantForm()
+  
+    if request.method=='GET':
+            title=request.values['title']
+            print(title)
+    if request.method=='POST':
+        if form.validate_on_submit(): 
+            print("嗨")
+            print(title)
+            post=Post(title=title,content=form.post.data,author=current_user,rated=form.rate.data)
+            db.session.add(post)
+            db.session.commit()
+            rated=Post.query.with_entities(Post.rated).filter(Post.title==title).all()
+            r_sum=0
+            count=0
+            for r in rated:
+                count=count+1
+                r_sum=r[0]+r_sum
+            print(r_sum/count)
+            avg_rated=int(r_sum/count)
+            print(avg_rated)
+            restaurant=Restaurant.query.filter(Restaurant.title==title).first()
+            restaurant.rated=avg_rated
+            db.session.commit() 
+            flash('成功新增該餐廳評分')
+            return redirect(url_for('home'))
+
+    return render_template('comment.html',form=form)
     
 
 

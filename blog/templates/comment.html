@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - add comment for Business Model Canvas </title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'><link rel="stylesheet" href="./static/css/comment.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="overlay" style="display: block;">
+  <div class="overlay-wrapper" tabindex="0">
+  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/back.png" class="overlay-close">
+  <div class="comment-list-container">
+    <div class="comment-list">
+  <header class="comments-header">
+    <h1>2 comments on:</h1>
+    <h2>eslam</h2>
+  </header>
+
+  <ul class="comments">
+    <li class="comment">
+      <img class="project-collaborator" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/default.png">
+<div class="comment-body">
+  <header class="comment-body-header">
+    <time class="comment-date">2 minutes ago</time>
+    <h1 class="comment-username">
+      eslamaboudesheesh says
+    </h1>
+  </header>
+  <p class="comment-text">
+    vdfdfd
+  </p>
+  
+    <a href="#" class="comment-remove hide-text" title="remove">(remove)</a>
+  
+</div>
+</li>
+    
+   <li class="comment"><img class="project-collaborator" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/default.png">
+<div class="comment-body">
+  <header class="comment-body-header">
+    <time class="comment-date">2 minutes ago</time>
+    <h1 class="comment-username">
+      eslamaboudesheesh says
+    </h1>
+  </header>
+  <p class="comment-text">
+    vdfdfd
+  </p>
+  
+    <a href="#" class="comment-remove hide-text" title="remove">(remove)</a>
+  
+</div>
+</li>
+    </ul>
+
+{% if current_user.is_authenticated%}
+ <form method ="POST" action='' >
+  {{ form.hidden_tag() }}
+  <div class="comment-form-area comment-form-expanded clearfix">
+    <img class="project-collaborator" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/default.png">
+    <div class="comment-area">
+      <header class="comment-body-header">
+        <label class="comment-username">You say</label>
+      </header>
+      
+      
+      <label class="new-comment-body">{{form.post(placeholder='你的評論')}}
+      {{form.rate(placeholder='你的評分')}}
+      {{form.post.errors[0]}}</label>
+     
+      <ul class="comment-actions clearfix">
+        <li class="pro-tip" id="mentions">
+        <div id="btn-group">
+          <li>
+            <button class="cancel-comment project-button">Cancel</button>
+          </li>
+          <li>
+            <button class="submit-comment project-accept"type="submit">Save</button>
+          </li>
+        </div>
+      </ul><!-- .comment-actions   -->
+    </div><!-- .comment-area -->
+  </div><!-- .comment-form-expanded -->
+</form>
+{%else%}
+{%endif%}
+</div><!-- .comment-list -->
+</div></div></div>
+<!-- partial -->
+  
+</body>
+</html>
