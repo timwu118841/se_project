@@ -35,23 +35,23 @@
     <div class="dropdown-contentwoo">
       {% if data[0] %}
       <form action="" method="POST">
-      <button  input type = "submit" name="submit_button"value="99{{data[0].location}}" >100內</button>
+      <button   name="submit_button"value="99" >100內</button>
       </form>
       <form action="" method="POST">
-      <button input type = "submit" name="submit_button"value="101{{data[0].location}}">100~300</button>
+      <button  name="submit_button"value="101">100~300</button>
       </form>
       <form action="" method="POST">
-       <button input type = "submit" name="submit_button"value="301{{data[0].location}}">300上</button>
+       <button  name="submit_button"value="301">300上</button>
       </form>
       {% else %}
       <form action="" method="POST">
-      <button  input type = "submit" name="submit_button"value="99{{data1[0].location}}" >100內</button>
+      <button   name="submit_button"value="99" >100內</button>
       </form>
       <form action="" method="POST">
-      <button input type = "submit" name="submit_button"value="101{{data1[0].location}}">100~300</button>
+      <button  name="submit_button"value="101">100~300</button>
       </form>
       <form action="" method="POST">
-       <button input type = "submit" name="submit_button"value="301{{data1[0].location}}">300上</button>
+       <button  name="submit_button"value="301">300上</button>
       </form>
      
       {% endif %}
@@ -62,9 +62,28 @@
       <i class="fa fa-caret-down"></i>
     </button>
     <div class="dropdown-contentwoo">
-      <a href="#">1星</a>
-      <a href="#">2~3星</a>
-      <a href="#">5星</a>
+     {% if data[0] %}
+      <form action="" method="POST">
+      <button   name="submit_button"value="1" >1星</button>
+      </form>
+      <form action="" method="POST">
+      <button  name="submit_button"value="3">2~4星</button>
+      </form>
+      <form action="" method="POST">
+       <button  name="submit_button"value="5">5星</button>
+      </form>
+      {% else %}
+      <form action="" method="POST">
+      <button   name="submit_button"value="1" >1星</button>
+      </form>
+      <form action="" method="POST">
+      <button  name="submit_button"value="3">2~4星</button>
+      </form>
+      <form action="" method="POST">
+       <button  name="submit_button"value="5">5星</button>
+      </form>
+     
+      {% endif %}
     </div>
     
   </div>
