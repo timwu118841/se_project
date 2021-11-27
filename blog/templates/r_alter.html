@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - HTML5 Contact Form</title>
+  <link rel="stylesheet" href="./static/css/r_sumit.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">  
+  <form id="contact" action="" method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <h3>修改餐廳</h3>
+    <h4>來修改你覺得錯誤的餐廳吧!</h4>
+    <fieldset>
+      {{form.title(placeholder="餐廳名稱")}}
+      {{form.title.errors[0]}}
+    </fieldset>
+     <fieldset>
+      {{form.location(placeholder="餐廳位置")}}
+      {{form.location.errors[0]}}
+    </fieldset>
+    <fieldset>
+     {{form.money(placeholder="餐廳價位")}}
+      {{form.money.errors[0]}}
+    </fieldset>
+    <fieldset>
+     {{form.tele(placeholder="餐廳電話")}}
+      {{form.tele.errors[0]}}
+    </fieldset>
+    <fieldset>
+     {{form.image(placeholder="餐廳相片", )}}
+      {{form.image.errors[0]}}
+    </fieldset>
+    <fieldset>
+    {{form.description(placeholder="餐廳簡述")}}
+      {{form.description.errors[0]}}
+    </fieldset>
+    <fieldset>
+      <button name="新增" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
+    </fieldset>
+  </form>
+ 
+  
+</div>
+<!-- partial -->
+  
+</body>
+</html>

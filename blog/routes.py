@@ -119,8 +119,27 @@ def sumit():
 @app.route("/r_alter",methods=['GET','POST'])
 def alter():
     form=RestuarantForm()
-    if form.validate_on_submit():
-        pass
+    global title
+    if request.method=='GET':
+        print("瘋狂做愛")
+        title=request.values['title']
+    if form.validate_on_submit(): 
+        image_data= request.files[form.image.name].read()
+        Dimage_data= b.b64encode(image_data)
+        restaurant = Restaurant.query.filter(Restaurant.title==title).first()
+        restaurant.title=form.title.data
+        restaurant.money=form.money.data
+        restaurant.tele=form.tele.data
+        restaurant.image=Dimage_data
+        restaurant.location=form.location.data
+        restaurant.description=form.description.data
+        db.session.commit()
+        flash('成功修改餐廳')
+        return redirect(url_for('home'))        
+                
+     
+    return render_template('r_alter.html',form=form)
+        
     
 @app.route("/comment",methods=['GET','POST'])
 def comment():

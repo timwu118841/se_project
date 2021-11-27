@@ -52,6 +52,7 @@
   {%endfor%}
 
 {% if current_user.is_authenticated%}
+  
  <form method ="POST" action='' >
   {{ form.hidden_tag() }}
   <div class="comment-form-area comment-form-expanded clearfix">
@@ -62,9 +63,10 @@
       </header>
       
       
-      <label class="new-comment-body">{{form.post(placeholder='你的評論')}}
-      {{form.rate(placeholder='你的評分')}}
-      {{form.post.errors[0]}}</label>
+      <label class="new-comment-body">{{form.post(placeholder='你的評論(最少十字)')}}
+      {{form.post.errors[0]}}
+      {{form.rate(placeholder='你的評分(1~5)')}}
+      {{form.rate.errors[0]}}</label>
      
       <ul class="comment-actions clearfix">
         <li class="pro-tip" id="mentions">

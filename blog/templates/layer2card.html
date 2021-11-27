@@ -26,6 +26,7 @@
       <i class="fa fa-caret-down"></i>
     </button>
   </div>
+  
     {% else %}
     {%endif%}
    <div class="dropdownwoo">
@@ -133,9 +134,19 @@
         <p class="card-text">簡介：{{r.description}}
                               價錢：{{r.money}}
                               評分:{{r.rated}}</p> 
-                            
+       <div > </a>
+       {% if current_user.is_authenticated%}
+      <a href ="/r_alter?title={{r.title}}">
+      <button onclick="">修改餐廳
+      </button>
+      </form>
+      {%else%}
+      {%endif%}
+      
+      </div>                      
       </div>
-      </a>
+     
+      
     </div>
    
  
