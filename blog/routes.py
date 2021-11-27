@@ -154,8 +154,7 @@ def alter():
 def comment():
     global title
     form=PostForm()
-   
-  
+    
     if request.method=='GET':
             title=request.values['title']
             print(title)
@@ -185,6 +184,14 @@ def comment():
             db.session.commit() 
             flash('成功新增該餐廳評分')
             return redirect(url_for('home'))
+    title=request.values['title']
+    print(title)
+    post=Post.query.filter(Post.title==title).all()
+    if post==None:
+        return render_template('comment.html',data=None,form=form)
+    else:
+        return render_template('comment.html',data=post,form=form)
+    
         
 @app.route("/alter_comment",methods=['GET','POST'])
 def alter_comment():
