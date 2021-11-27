@@ -121,7 +121,7 @@ def alter():
     form=RestuarantForm()
     global title
     if request.method=='GET':
-        print("瘋狂做愛")
+       
         title=request.values['title']
     if form.validate_on_submit(): 
         image_data= request.files[form.image.name].read()
@@ -134,9 +134,15 @@ def alter():
         restaurant.location=form.location.data
         restaurant.description=form.description.data
         db.session.commit()
-        post=Post.query.filter(Post.title==title).first()
-        post.title=form.title.data
-        db.session.commit()
+        
+        post=Post.query.filter(Post.title==title).all()
+        if post==None:
+            pass
+        else:
+            for r in post:
+                r.title=form.title.data
+                db.session.commit()
+                
         flash('成功修改餐廳')
         return redirect(url_for('home'))        
                 
@@ -172,7 +178,7 @@ def comment():
                 count=count+1
                 r_sum=r[0]+r_sum
             print(r_sum/count)
-            avg_rated=int(r_sum/count)
+            avg_rated=float(r_sum/count)
             print(avg_rated)
             restaurant=Restaurant.query.filter(Restaurant.title==title).first()
             restaurant.rated=avg_rated
