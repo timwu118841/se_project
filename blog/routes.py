@@ -134,6 +134,9 @@ def alter():
         restaurant.location=form.location.data
         restaurant.description=form.description.data
         db.session.commit()
+        post=Post.query.filter(Post.title==title).first()
+        post.title=form.title.data
+        db.session.commit()
         flash('成功修改餐廳')
         return redirect(url_for('home'))        
                 
@@ -176,7 +179,27 @@ def comment():
             db.session.commit() 
             flash('成功新增該餐廳評分')
             return redirect(url_for('home'))
-
+        
+@app.route("/alter_comment",methods=['GET','POST'])
+def alter_comment():
+    global C_id
+    form=PostForm()
+    if request.method=='GET':
+        C_id=request.values['id']
+        return render_template('alter_comment.html',form=form)
+           
+          
+    if request.method=='POST':
+        if form.validate_on_submit(): 
+            post=Post.query.filter(Post.id==C_id).first()
+            post.rated=form.rate.data
+            post.content=form.post.data
+            
+            db.session.commit()
+            flash('成功修改該餐廳評分')
+            return redirect(url_for('home'))
+    
+        
     
     
 

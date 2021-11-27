@@ -8,54 +8,14 @@
 </head>
 <body>
 <!-- partial:index.partial.html -->
-{% if data[0]%}
+
 <div class="overlay" style="display: block;">
-  <div class="overlay-wrapper" tabindex="0">
-  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/back.png" class="overlay-close">
-  <div class="comment-list-container">
-    <div class="comment-list">
-  <header class="comments-header">
-    <h1>comments on:</h1>
-    <h2>{{data[0].title}}</h2>
-  </header>
-  {%else%}
-  <div class="overlay" style="display: block;">
-  <div class="overlay-wrapper" tabindex="0">
-  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/back.png" class="overlay-close">
-  <div class="comment-list-container">
-    <div class="comment-list">
-  <header class="comments-header">
-    <h1>還沒有評論</h1>
-  </header>
-  {%endif%}
+ 
+<div class="comment-list">
 
-{%for x in data%}
-  <ul class="comments">
-    <li class="comment">
-      <img class="project-collaborator" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/default.png">
-<div class="comment-body">
-  <header class="comment-body-header">
-    <time class="comment-date">{{x.date_posted}}</time>
-    <h1 class="comment-username">
-      {{x.author.username}} says
-    </h1>
-  </header>
-  <p class="comment-text">
-    {{x.content}}
-  </p>
-    {% if x.author == current_user%}
-    <a href="/alter_comment?id={{x.id}}" class="comment-remove hide-text" title="remove">(remove)</a>
-   {%else%}
-   {%endif%}
-</div>
-</li>
-    </ul>
-  {%endfor%}
-
-{% if current_user.is_authenticated%}
-  
  <form method ="POST" action='' >
-  {{ form.hidden_tag() }}
+    {{ form.hidden_tag() }}
+
   <div class="comment-form-area comment-form-expanded clearfix">
     <img class="project-collaborator" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/454262/default.png">
     <div class="comment-area">
@@ -83,8 +43,7 @@
     </div><!-- .comment-area -->
   </div><!-- .comment-form-expanded -->
 </form>
-{%else%}
-{%endif%}
+
 </div><!-- .comment-list -->
 </div></div></div>
 <!-- partial -->
